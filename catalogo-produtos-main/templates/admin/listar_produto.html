@@ -1,0 +1,101 @@
+
+{% extends 'admin/base.html' %}
+
+{% block title %}Produtos{% endblock %}
+{% block page_title %}Produtos{% endblock %}
+{% block breadcrumb %}Produtos{% endblock %}
+
+{% block content %}
+
+<div class="card-header d-flex justify-content-between align-items-center">
+    <h3 class="card-title mb-0">Lista de produtos</h3>
+
+    <a href="{{ url_for('cadastrarProduto') }}"
+       class="btn btn-primary">
+        <i class="bi bi-plus-lg"></i> Adicionar produto
+    </a>
+</div>
+
+
+  <div class="card-body p-0">
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0">
+
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Imagem</th>
+            <th>Nome</th>
+            <th>Categoria</th>
+            <th>Preço</th>
+            <th>Status</th>
+            <th class="text-end">Ações</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {% for i in produtos %}
+          <tr>
+            <td>{{ i.id }}</td>
+
+            <td>
+              {% if i.img %}
+                <img src="{{ url_for('static', filename=i.img) }}"
+                     class="table-thumb"
+                     alt="{{ i.nome }}">
+              {% else %}
+                <span class="placeholder-image">
+                  <i class="bi bi-image text-secondary"></i>
+                </span>
+              {% endif %}
+            </td>
+
+            <td class="fw-semibold">{{ i.nome }}</td>
+
+            <td>{{ i.categoria_nome or '-' }}</td>
+
+            <td>
+              {% if i.preco is not none %}
+                R$ {{ '%.2f'|format(i.preco)|replace('.', ',') }}
+              {% else %}
+                -
+              {% endif %}
+            </td>
+
+            <td>
+              {% if i.ativo|string == 'True' %}
+                <span class="badge text-bg-success">Ativo</span>
+              {% else %}
+                <span class="badge text-bg-secondary">Inativo</span>
+              {% endif %}
+            </td>
+
+            <td class="text-end text-nowrap">
+              <a href="{{ url_for('editarProduto', id=i.id) }}"
+                 class="btn btn-sm btn-warning">
+                <i class="bi bi-pencil"></i> Editar
+              </a>
+
+              <a href="{{ url_for('excluirProduto', id=i.id) }}"
+                 class="btn btn-sm btn-danger">
+                <i class="bi bi-trash"></i> Excluir
+              </a>
+            </td>
+          </tr>
+
+          {% else %}
+          <tr>
+            <td colspan="7"
+                class="text-center text-secondary py-4">
+              Nenhum produto cadastrado.
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}
+

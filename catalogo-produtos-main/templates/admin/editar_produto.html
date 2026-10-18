@@ -1,0 +1,57 @@
+
+{% extends 'admin/base.html' %}
+{% block title %}Editar produto{% endblock %}
+{% block page_title %}Editar produto{% endblock %}
+{% block breadcrumb %}Produtos / Editar{% endblock %}
+
+{% block content %}
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title">Editar produto</h3>
+  </div>
+
+  <form method="POST">
+    <div class="card-body">
+      <div class="mb-3">
+        <label class="form-label" for="nome">Nome</label>
+        <input class="form-control" id="nome" name="nome"
+               value="{{ produto.nome }}" required>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label" for="preco">Preço</label>
+        <input class="form-control" id="preco" name="preco"
+               value="{{ produto.preco }}" required>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label" for="id_categoria">Categoria</label>
+        <select class="form-select" id="id_categoria"
+                name="id_categoria">
+          <option value="">Sem categoria</option>
+          {% for categoria in categorias %}
+          <option value="{{ categoria.id }}"
+            {% if categoria.id == produto.id_categoria %}selected{% endif %}>
+            {{ categoria.nome }}
+          </option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label" for="ativo">Status</label>
+        <select class="form-select" id="ativo" name="ativo">
+          <option value="1" {% if produto.ativo|string == 'True' or produto.ativo|string == '1' %}selected{% endif %}>Ativo</option>
+          <option value="0" {% if produto.ativo|string == 'False' or produto.ativo|string == '0' %}selected{% endif %}>Inativo</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="card-footer">
+      <a href="{{ url_for('listarProduto') }}"
+         class="btn btn-secondary">Cancelar</a>
+      <button type="submit" class="btn btn-warning">Salvar alterações</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

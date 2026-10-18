@@ -1,0 +1,75 @@
+
+{% extends 'admin/base.html' %}
+
+{% block title %}Cadastrar produto{% endblock %}
+{% block page_title %}Cadastrar produto{% endblock %}
+{% block breadcrumb %}Produtos / Cadastrar{% endblock %}
+
+{% block content %}
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title">Adicionar produto</h3>
+  </div>
+
+  <form method="POST"
+        action="{{ url_for('cadastrarProduto') }}"
+        enctype="multipart/form-data">
+
+    <div class="card-body">
+
+      <div class="mb-3">
+        <label for="nome" class="form-label">Nome do produto</label>
+        <input type="text" id="nome" name="nome"
+               class="form-control" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="preco" class="form-label">Preço (R$)</label>
+        <input type="text" id="preco" name="preco"
+               class="form-control" placeholder="Ex.: 49,90"
+               required>
+      </div>
+
+      <div class="mb-3">
+        <label for="id_categoria" class="form-label">Categoria</label>
+        <select id="id_categoria" name="id_categoria"
+                class="form-select">
+          <option value="">Selecione uma categoria</option>
+          {% for categoria in categorias %}
+          <option value="{{ categoria.id }}">
+            {{ categoria.nome }}
+          </option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label for="ativo" class="form-label">Status</label>
+        <select id="ativo" name="ativo" class="form-select">
+          <option value="1">Ativo</option>
+          <option value="0">Inativo</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label for="imagem" class="form-label">Imagem do produto</label>
+        <input type="file" id="imagem" name="imagem"
+               class="form-control" accept="image/*">
+      </div>
+
+    </div>
+
+    <div class="card-footer d-flex justify-content-between">
+      <a href="{{ url_for('listarProduto') }}"
+         class="btn btn-secondary">
+        Cancelar
+      </a>
+
+      <button type="submit" class="btn btn-primary">
+        <i class="bi bi-plus-lg"></i> Cadastrar produto
+      </button>
+    </div>
+
+  </form>
+</div>
+{% endblock %}

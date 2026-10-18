@@ -1,0 +1,22 @@
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyc
+
+# Ambiente virtual
+.venv/
+venv/
+env/
+
+# Configurações e segredos
+.env
+.env.*
+!.env.example
+
+# Editor
+.vscode/
+
+# Banco local (avalie antes de ignorar)
+# *.db
+# *.sqlite3

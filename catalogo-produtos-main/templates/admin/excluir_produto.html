@@ -1,0 +1,30 @@
+
+{% extends 'admin/base.html' %}
+{% block title %}Excluir produto{% endblock %}
+{% block page_title %}Excluir produto{% endblock %}
+{% block breadcrumb %}Produtos / Excluir{% endblock %}
+
+{% block content %}
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title">Confirmar exclusão</h3>
+  </div>
+
+  <div class="card-body">
+    <p>Tem certeza de que deseja excluir o produto
+      <strong>{{ produto.nome }}</strong>?</p>
+    <p>Esta ação não poderá ser desfeita.</p>
+  </div>
+
+  <div class="card-footer">
+    <a href="{{ url_for('listarProduto') }}"
+       class="btn btn-secondary">Cancelar</a>
+
+    <form method="POST" style="display:inline">
+      <button type="submit" class="btn btn-danger">
+        Confirmar exclusão
+      </button>
+    </form>
+  </div>
+</div>
+{% endblock %}
