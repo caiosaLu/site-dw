@@ -31,23 +31,37 @@
           </a>
         </li>
         <li class="nav-item d-none d-md-block">
-          <a href="{{ url_for('index') }}" class="nav-link">Início</a>
+          <a href="{{ url_for('painel_admin') }}" class="nav-link">Início</a>
         </li>
       </ul>
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item">
-          <span class="nav-link"><i class="bi bi-person-circle me-1"></i> Administrador</span>
-        </li>
-      </ul>
+      
+<ul class="navbar-nav ms-auto">
+    <li class="nav-item">
+        <span class="nav-link">
+            <i class="bi bi-person-circle me-1"></i>
+            {{ session.get('usuario_nome', 'Administrador') }}
+        </span>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link text-danger"
+           href="{{ url_for('logout') }}"
+           onclick="return confirm('Deseja realmente sair do sistema?')">
+            <i class="bi bi-box-arrow-right me-1"></i>
+            Sair
+        </a>
+    </li>
+</ul>
+
     </div>
   </nav>
 
   <aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark">
     <div class="sidebar-brand">
-      <a href="{{ url_for('index') }}" class="brand-link">
+      <a href="{{ url_for('painel_admin') }}" class="brand-link">
         <img src="{{ url_for('static', filename='css/dist/assets/img/AdminLTELogo.png') }}"
              alt="Logo" class="brand-image opacity-75 shadow">
-        <span class="brand-text fw-light">Meu Sistema</span>
+        <span class="brand-text fw-light">Pizza Store</span>
       </a>
     </div>
 
@@ -93,7 +107,7 @@
           <div class="col-sm-6"><h3 class="mb-0">{% block page_title %}Painel{% endblock %}</h3></div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-end mb-0">
-              <li class="breadcrumb-item"><a href="{{ url_for('index') }}">Início</a></li>
+              <li class="breadcrumb-item"><a href="{{ url_for('painel_admin') }}">Início</a></li>
               <li class="breadcrumb-item active">{% block breadcrumb %}Painel{% endblock %}</li>
             </ol>
           </div>
